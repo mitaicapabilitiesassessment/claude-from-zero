@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="vi" data-theme="dark">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Bài học · Claude Zero</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Be+Vietnam+Pro:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="readbar" id="readbar"></div>
+  <div class="sky" id="sky"></div>
+  <div class="glow"></div>
+
+  <nav class="top">
+    <div class="wrap">
+      <a href="index.html" class="brand"><span class="brand-logo">A</span><span>Tên của bạn</span></a>
+      <div class="nav-links">
+        <button class="btn ghost menu-btn" id="menuBtn" style="padding:8px 16px">☰ Bài học</button>
+        <a href="index.html#lo-trinh" class="hide-sm">Lộ trình</a>
+        <button class="toggle" id="toggle" title="Đổi giao diện sáng/tối">☀️</button>
+      </div>
+    </div>
+  </nav>
+
+  <div class="wrap layout">
+    <aside class="sidebar" id="sidebar"></aside>
+    <article id="article"></article>
+  </div>
+
+  <footer>
+    <div class="wrap">
+      <span>© 2026 Tên của bạn</span>
+      <span>Tài liệu giảng dạy nội bộ</span>
+    </div>
+  </footer>
+
+<script src="lessons-data.js"></script>
+<script src="common.js"></script>
+<script>
+  const L = window.LESSONS;
+  let id = parseInt(new URLSearchParams(location.search).get("b"), 10);
+  if (isNaN(id) || id < 0 || id >= L.length) id = 0;
+  const les = L[id];
+  const partLabel = p => p === "Mở đầu" ? "Mở đầu" : "Phần " + p;
+  const esc = s => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  document.title = `Bài ${id}: ${les.title} · Claude Zero`;
+
+  // ---------- Sidebar ----------
+  function renderSidebar() {
+    let html = "", last = "";
+    L.forEach((l, i) => {
+      if (l.part !== last) { html += `<h4>${partLabel(l.part)}</h4>`; last = l.part; }
+      const done = Progress.has(i);
+      html += `<a href="lesson.html?b=${i}" class="${i === id ? "current" : ""} ${done ? "done" : ""}">
+        <span class="n">${done ? "✓" : i}</span><span>${l.title}</span></a>`;
+    });
+    document.getElementById("sidebar").innerHTML = html;
+  }
+  renderSidebar();
+  document.getElementById("menuBtn").onclick = () => document.getElementById("sidebar").classList.toggle("open");
+
+  // ---------- Nội dung ----------
+  const icons = { tip: "💡", warn: "⚠️", note: "📌" };
+  const block = ([type, a, b]) => {
+    switch (type) {
+      case "h": return `<h2>${a}</h2>`;
+      case "p": return `<p>${a}</p>`;
+      case "list": return `<ul>${a.map(x => `<li>${x}</li>`).join("")}</ul>`;
+      case "steps": return `<ol class="steps">${a.map(x => `<li>${x}</li>`).join("")}</ol>`;
+      case "code": return codeBox(a, b, false);
+      case "prompt": return codeBox("Prompt gửi Claude", a, true);
+      case "tip": case "warn": case "note":
+        return `<div class="callout ${type}"><span class="ic">${icons[type]}</span><p>${a}</p></div>`;
+      default: return "";
+    }
+  };
+  function codeBox(label, text, isPrompt) {
+    return `<div class="code ${isPrompt ? "prompt" : ""}">
+      <div class="code-head"><span class="dots"><span></span><span></span><span></span> ${esc(label)}</span>
+      <button class="copy">Sao chép</button></div><pre>${esc(text)}</pre></div>`;
+  }
+
+  const prev = L[id - 1], next = L[id + 1];
+  document.getElementById("article").innerHTML = `
+    <div class="crumb"><a href="index.html">Trang chủ</a> / <a href="index.html#lo-trinh">Lộ trình</a> / ${partLabel(les.part)}</div>
+    <span class="eyebrow">Bài ${id}</span>
+    <h1>${les.title}</h1>
+    <p class="lead">${les.lead}</p>
+    <div class="meta-row">
+      <span class="pill">${partLabel(les.part)}</span>
+      <span class="pill">⏱ ${les.min} phút</span>
+      ${les.tag ? `<span class="pill acc">${les.tag}</span>` : ""}
+    </div>
+    <div class="box"><h3>🎯 Mục tiêu bài học</h3><ul>${les.goals.map(g => `<li>${g}</li>`).join("")}</ul></div>
+    <div class="body">${les.body.map(block).join("")}</div>
+    <div class="box exercise"><h3>✍️ Bài tập thực hành</h3><p>${les.exercise}</p></div>
+    <div class="box"><h3>📝 Ghi nhớ</h3><ul>${les.recap.map(r => `<li>${r}</li>`).join("")}</ul></div>
+    <div class="done-row"><button class="btn" id="doneBtn"></button></div>
+    <div class="pager">
+      ${prev ? `<a href="lesson.html?b=${id - 1}"><small>← Bài trước</small>Bài ${id - 1}: ${prev.title}</a>` : ""}
+      ${next ? `<a class="next" href="lesson.html?b=${id + 1}"><small>Bài tiếp theo →</small>Bài ${id + 1}: ${next.title}</a>`
+             : `<a class="next" href="index.html"><small>Hoàn thành khoá học 🎉</small>Về trang chủ</a>`}
+    </div>`;
+
+  // ---------- Sao chép ----------
+  document.querySelectorAll(".copy").forEach(btn => btn.onclick = async () => {
+    const text = btn.closest(".code").querySelector("pre").textContent;
+    try { await navigator.clipboard.writeText(text); }
+    catch { const t = document.createElement("textarea"); t.value = text; document.body.appendChild(t); t.select(); document.execCommand("copy"); t.remove(); }
+    btn.textContent = "Đã chép ✓"; btn.classList.add("ok");
+    setTimeout(() => { btn.textContent = "Sao chép"; btn.classList.remove("ok"); }, 1600);
+  });
+
+  // ---------- Hoàn thành ----------
+  const doneBtn = document.getElementById("doneBtn");
+  const syncDone = () => doneBtn.innerHTML = Progress.has(id) ? "✓ Đã hoàn thành (bấm để bỏ)" : "Đánh dấu hoàn thành";
+  syncDone();
+  doneBtn.onclick = () => {
+    const nowDone = Progress.toggle(id); syncDone(); renderSidebar();
+    if (nowDone && next) setTimeout(() => location.href = `lesson.html?b=${id + 1}`, 500);
+  };
+
+  // ---------- Thanh tiến độ đọc ----------
+  const bar = document.getElementById("readbar");
+  addEventListener("scroll", () => {
+    const h = document.documentElement.scrollHeight - innerHeight;
+    bar.style.width = (h > 0 ? scrollY / h * 100 : 0) + "%";
+  });
+</script>
+</body>
+</html>

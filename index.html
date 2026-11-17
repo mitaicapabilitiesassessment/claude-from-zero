@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="vi" data-theme="dark">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Claude Code cho người không biết code · Khoá học miễn phí</title>
+<meta name="description" content="Khoá học Claude Code miễn phí dành cho người non-tech: 21 bài, 7 phần, 3 sản phẩm thực tế." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Be+Vietnam+Pro:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="sky" id="sky"></div>
+  <div class="glow"></div>
+
+  <!-- ========== THANH ĐIỀU HƯỚNG (đổi tên thương hiệu ở đây) ========== -->
+  <nav class="top">
+    <div class="wrap">
+      <a href="index.html" class="brand"><span class="brand-logo">TD</span><span>Trainer Trịnh Đức</span></a>
+      <div class="nav-links">
+        <a href="#lo-trinh" class="hide-sm">Lộ trình</a>
+        <a href="#ket-qua" class="hide-sm">Kết quả</a>
+        <a href="#bat-dau" class="hide-sm">Bắt đầu</a>
+        <button class="toggle" id="toggle" title="Đổi giao diện sáng/tối">☀️</button>
+      </div>
+    </div>
+  </nav>
+
+  <main class="wrap">
+    <!-- ========== HERO ========== -->
+    <header class="hero">
+      <div class="reveal">
+        <span class="label">Khoá học miễn phí</span>
+        <h1><span class="big">Claude</span><span class="big hl">Zero</span></h1>
+        <p class="tagline">Học <span class="hl">Claude Code</span> dành cho người không biết code.</p>
+        <p class="intro">
+          Bạn không cần biết lập trình để bắt AI làm việc cho mình. Khoá học này đi từ những khái niệm
+          cơ bản nhất, từng bước một, cho tới khi bạn tự tay tự động hoá được công việc hằng ngày
+          và đưa được sản phẩm đầu tiên của mình lên Internet.
+        </p>
+        <div class="stats">
+          <div class="stat"><b id="stat-lessons">21</b><small>bài học</small></div>
+          <div class="stat"><b id="stat-parts">7</b><small>phần</small></div>
+          <div class="stat"><b>3</b><small>sản phẩm</small></div>
+          <div class="stat"><b>0đ</b><small>học phí</small></div>
+        </div>
+        <a href="lesson.html?b=0" class="btn" id="startBtn">Bắt đầu học <span class="arr">→</span></a>
+        <p class="progress-line" id="progressLine"></p>
+      </div>
+
+      <!-- Hình minh hoạ tự vẽ (không dùng ảnh cá nhân) -->
+      <div class="hero-art reveal" aria-hidden="true">
+        <svg viewBox="0 0 400 380" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="scr" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#1e2342"/><stop offset="1" stop-color="#111428"/>
+            </linearGradient>
+          </defs>
+          <rect x="60" y="70" width="280" height="190" rx="16" fill="#2b2f4a"/>
+          <rect x="74" y="84" width="252" height="162" rx="8" fill="url(#scr)"/>
+          <text x="90" y="116" font-family="JetBrains Mono, monospace" font-size="14" fill="#d97757">&gt; claude</text>
+          <text x="90" y="142" font-family="JetBrains Mono, monospace" font-size="12" fill="#a5a8bd">Xin chào! Hôm nay</text>
+          <text x="90" y="160" font-family="JetBrains Mono, monospace" font-size="12" fill="#a5a8bd">mình làm gì nhé?</text>
+          <rect x="90" y="176" width="150" height="8" rx="4" fill="#3a3f63"/>
+          <rect x="90" y="192" width="110" height="8" rx="4" fill="#3a3f63"/>
+          <rect x="90" y="214" width="10" height="16" fill="#d97757"><animate attributeName="opacity" values="1;0;1" dur="1s" repeatCount="indefinite"/></rect>
+          <path d="M30 262 h340 l-22 30 h-296 z" fill="#3a3f63"/>
+          <rect x="170" y="266" width="60" height="8" rx="4" fill="#2b2f4a"/>
+          <g transform="translate(250 270)">
+            <rect x="0" y="20" width="90" height="56" rx="6" fill="#d97757"/>
+            <rect x="-14" y="38" width="14" height="16" fill="#d97757"/>
+            <rect x="90" y="38" width="14" height="16" fill="#d97757"/>
+            <rect x="22" y="36" width="10" height="14" fill="#1f1b16"/>
+            <rect x="58" y="36" width="10" height="14" fill="#1f1b16"/>
+            <rect x="10" y="76" width="10" height="14" fill="#d97757"/>
+            <rect x="30" y="76" width="10" height="14" fill="#d97757"/>
+            <rect x="50" y="76" width="10" height="14" fill="#d97757"/>
+            <rect x="70" y="76" width="10" height="14" fill="#d97757"/>
+          </g>
+          <path d="M60 30 l5 12 l12 5 l-12 5 l-5 12 l-5 -12 l-12 -5 l12 -5z" fill="#d97757" opacity=".8"/>
+          <path d="M350 40 l3 8 l8 3 l-8 3 l-3 8 l-3 -8 l-8 -3 l8 -3z" fill="#f3c9a8"/>
+        </svg>
+      </div>
+    </header>
+
+    <!-- ========== LỘ TRÌNH ========== -->
+    <section id="lo-trinh">
+      <div class="sec-head reveal">
+        <span class="eyebrow">Lộ trình</span>
+        <h2>Từ con số 0 tới website của riêng bạn</h2>
+        <p id="summary"></p>
+      </div>
+      <div class="filters" id="filters"></div>
+      <div class="lessons" id="lessons"></div>
+    </section>
+
+    <!-- ========== KẾT QUẢ ========== -->
+    <section id="ket-qua">
+      <div class="sec-head reveal">
+        <span class="eyebrow">Kết quả</span>
+        <h2>3 sản phẩm bạn mang về sau khoá học</h2>
+      </div>
+      <div class="outcomes">
+        <a class="outcome reveal" href="lesson.html?b=8">
+          <div class="icon">📊</div>
+          <small>Sản phẩm 1 · Bài 8–9</small>
+          <h3>Báo cáo tự động</h3>
+          <p>Đưa vào vài file Excel lộn xộn, nhận lại bộ slide báo cáo gọn gàng. Sau đó đóng gói cả quy trình thành một skill để lần sau chỉ cần gõ một câu.</p>
+        </a>
+        <a class="outcome reveal" href="lesson.html?b=15">
+          <div class="icon">☀️</div>
+          <small>Sản phẩm 2 · Bài 15</small>
+          <h3>Bản tin mỗi sáng</h3>
+          <p>Cùng Claude xác định những thông tin bạn cần mỗi ngày, tạo trang bản tin cá nhân và hẹn giờ cho nó tự chạy vào mỗi sáng ngày làm việc.</p>
+        </a>
+        <a class="outcome reveal" href="lesson.html?b=16">
+          <div class="icon">🌐</div>
+          <small>Sản phẩm 3 · Bài 16–18</small>
+          <h3>Website cá nhân</h3>
+          <p>Để Claude hỏi bạn vài câu, dựng một trang giới thiệu bản thân rồi đưa nó lên Internet với đường link riêng để chia sẻ cho mọi người.</p>
+        </a>
+      </div>
+      <p class="bonus reveal">Và quan trọng hơn cả: <span class="hl">tư duy hệ thống khi làm việc với AI</span>.</p>
+    </section>
+
+    <!-- ========== CTA ========== -->
+    <section id="bat-dau">
+      <div class="cta reveal">
+        <span class="eyebrow">Sẵn sàng chưa?</span>
+        <h2>Bắt đầu từ Bài 0</h2>
+        <p>Hoàn toàn miễn phí, không cần đăng ký. Mỗi bài có hướng dẫn từng bước và các câu lệnh mẫu để bạn sao chép và làm theo ngay trên máy của mình.</p>
+        <a href="lesson.html?b=0" class="btn">Vào bài đầu tiên <span class="arr">→</span></a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <span>© 2026 Tên của bạn</span>
+      <span>Tài liệu giảng dạy nội bộ</span>
+    </div>
+  </footer>
+
+<!-- Danh sách bài học nằm trong lessons-data.js -->
+<script src="lessons-data.js"></script>
+<script src="common.js"></script>
+<script>
+  const LESSONS = window.LESSONS;
+  const partLabel = p => p === "Mở đầu" ? "Mở đầu" : "Phần " + p;
+  const lessonsEl = document.getElementById("lessons");
+  const filtersEl = document.getElementById("filters");
+  const parts = ["Tất cả", ...new Set(LESSONS.map(l => l.part))];
+  const totalMin = LESSONS.reduce((s, l) => s + l.min, 0);
+  document.getElementById("summary").textContent =
+    `${LESSONS.length} bài học · khoảng ${Math.round(totalMin / 6) / 10} giờ · học theo tốc độ của bạn`;
+  document.getElementById("stat-lessons").textContent = LESSONS.length;
+  document.getElementById("stat-parts").textContent = parts.length - 2; // bỏ "Tất cả" và "Mở đầu"
+
+  // Tiến độ
+  const done = Progress.all();
+  if (done.length) {
+    const nextIdx = LESSONS.findIndex((_, i) => !done.includes(i));
+    document.getElementById("progressLine").innerHTML =
+      `Bạn đã hoàn thành <b>${done.length}/${LESSONS.length}</b> bài.`;
+    if (nextIdx >= 0) {
+      const sb = document.getElementById("startBtn");
+      sb.href = `lesson.html?b=${nextIdx}`;
+      sb.innerHTML = `Học tiếp Bài ${nextIdx} <span class="arr">→</span>`;
+    }
+  }
+
+  function render(filter = "Tất cả") {
+    lessonsEl.innerHTML = LESSONS.map((l, i) => ({ ...l, i }))
+      .filter(l => filter === "Tất cả" || l.part === filter)
+      .map(l => `
+        <a class="lesson ${done.includes(l.i) ? "done" : ""}" href="lesson.html?b=${l.i}">
+          ${l.tag ? `<span class="badge">${l.tag}</span>` : ""}
+          <div class="meta"><span>${partLabel(l.part)}</span><span>${done.includes(l.i) ? "✓ Đã học" : l.min + " phút"}</span></div>
+          <span class="num">Bài ${l.i}</span>
+          <h3>${l.title}</h3>
+        </a>`).join("");
+  }
+  filtersEl.innerHTML = parts.map((p, i) =>
+    `<button class="chip ${i === 0 ? "active" : ""}" data-p="${p}">${p}</button>`).join("");
+  filtersEl.addEventListener("click", e => {
+    if (!e.target.dataset.p) return;
+    filtersEl.querySelectorAll(".chip").forEach(c => c.classList.toggle("active", c === e.target));
+    render(e.target.dataset.p);
+  });
+  render();
+  observeReveal();
+</script>
+</body>
+</html>
